@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoServis Kováč | Profesionálny servis vozidiel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Oswald', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fef2f2',
+                            100: '#fee2e2',
+                            500: '#ef4444',
+                            600: '#dc2626',
+                            700: '#b91c1c',
+                            900: '#7f1d1d',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'slide-up': 'slideUp 0.6s ease-out forwards',
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6, .font-heading { font-family: 'Oswald', sans-serif; }
+        
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-primary {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            transition: transform 0.6s ease, opacity 0.6s ease;
+        }
+        .btn-primary:hover::after {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+    <!-- Top Bar -->
+    <div class="bg-slate-950 text-slate-300 py-2.5 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center text-sm font-medium tracking-wide">
+            <div class="flex items-center gap-6">
+                <span class="flex items-center gap-2 hover:text-white transition-colors duration-300">
+                    <i data-lucide="phone" class="w-4 h-4 text-brand-500"></i>
+                    +421 911 234 567
+                </span>
+                <span class="flex items-center gap-2 hover:text-white transition-colors duration-300 hidden sm:flex">
+                    <i data-lucide="clock" class="w-4 h-4 text-brand-500"></i>
+                    Po-Pia: 7:00 - 18:00
+                </span>
+            </div>
+            <div class="flex items-center gap-5">
+                <a href="#" class="text-slate-400 hover:text-brand-500 transition-colors duration-300 transform hover:scale-110"><i data-lucide="facebook" class="w-4.5 h-4.5"></i></a>
+                <a href="#" class="text-slate-400 hover:text-brand-500 transition-colors duration-300 transform hover:scale-110"><i data-lucide="instagram" class="w-4.5 h-4.5"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="glass-nav sticky top-0 z-50 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center space-x-4 group cursor-pointer">
+                    <div class="w-12 h-12 bg-gradient-to-br from-brand-500 to-brand-700 rounded-xl flex items-center justify-center shadow-lg shadow-brand-500/30 group-hover:shadow-brand-500/50 transition-all duration-300">
+                        <i data-lucide="wrench" class="w-6 h-6 text-white transform group-hover:rotate-12 transition-transform duration-300"></i>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-bold font-heading text-slate-900 tracking-tight uppercase">Autoservis</span>
+                        <span class="block text-sm text-brand-600 font-semibold uppercase tracking-widest -mt-1">Kováč</span>
+                    </div>
+                </div>
+                <div class="hidden lg:flex space-x-1">
+                    <a href="#sluzby" class="px-4 py-2 text-slate-700 font-medium hover:text-brand-600 rounded-lg hover:bg-slate-50 transition-all duration-300">Služby</a>
+                    <a href="#cennik" class="px-4 py-2 text-slate-700 font-medium hover:text-brand-600 rounded-lg hover:bg-slate-50 transition-all duration-300">Cenník</a>
+                    <a href="#o-nas" class="px-4 py-2 text-slate-700 font-medium hover:text-brand-600 rounded-lg hover:bg-slate-50 transition-all duration-300">O nás</a>
+                    <a href="#recenzie" class="px-4 py-2 text-slate-700 font-medium hover:text-brand-600 rounded-lg hover:bg-slate-50 transition-all duration-300">Recenzie</a>
+                    <a href="#kontakt" class="px-4 py-2 text-slate-700 font-medium hover:text-brand-600 rounded-lg hover:bg-slate-50 transition-all duration-300">Kontakt</a>
+                </div>
+                <a href="#objednavka" class="btn-primary bg-brand-600 text-white px-6 py-2.5 rounded-xl font-semibold hover:bg-brand-700 shadow-lg shadow-brand-600/30 flex items-center gap-2">
+                    <i data-lucide="calendar-check" class="w-5 h-5"></i>
+                    Objednať servis
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative bg-slate-900 overflow-hidden min-h-[600px] flex items-center">
+        <div class="absolute inset-0">
+            <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=1600&h=800&fit=crop" alt="Autoservis" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-900/80 to-transparent"></div>
+            <div class="absolute inset-0 bg-brand-900/10 mix-blend-multiply"></div>
+        </div>
+        
+        <!-- Decorative Elements -->
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-brand-600/10 to-transparent skew-x-12 transform origin-top-right"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32 w-full">
+            <div class="max-w-3xl animate-slide-up">
+                <div class="inline-flex items-center gap-2 bg-slate-800/50 backdrop-blur-md border border-slate-700/50 text-brand-400 px-5 py-2 rounded-full text-sm font-semibold tracking-wide uppercase mb-8 shadow-lg">
+                    <span class="relative flex h-2.5 w-2.5">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-500"></span>
+                    </span>
+                    Autorizovaný partner kvality
+                </div>
+                
+                <h1 class="text-5xl lg:text-7xl font-bold font-heading text-white mb-6 leading-[1.1] tracking-tight">
+                    VAŠE VOZIDLO V <br />
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-600">DOBRÝCH RUKÁCH</span>
+                </h1>
+                
+                <p class="text-xl lg:text-2xl text-slate-300 mb-10 leading-relaxed font-light max-w-2xl">
+                    Profesionálny autoservis s <strong class="text-white font-semibold">20-ročnou tradíciou</strong>. Kompletná diagnostika, precízne opravy a údržba bez kompromisov.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-5">
+                    <a href="#objednavka" class="btn-primary bg-brand-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-brand-700 shadow-xl shadow-brand-600/20 flex items-center justify-center gap-3">
+                        <i data-lucide="calendar-check" class="w-5 h-5"></i>
+                        Online objednávka
+                    </a>
+                    <a href="#sluzby" class="group bg-slate-800/40 backdrop-blur-sm text-white border border-slate-600/50 px-8 py-4 rounded-xl font-bold text-lg hover:bg-white hover:text-slate-900 transition-all duration-300 flex items-center justify-center gap-2">
+                        Preskúmať služby
+                        <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+                
+                <div class="grid grid-cols-3 gap-6 lg:gap-12 mt-16 pt-10 border-t border-slate-700/50">
+                    <div class="text-left">
+                        <div class="text-4xl lg:text-5xl font-bold font-heading text-white mb-1">20<span class="text-brand-500">+</span></div>
+                        <div class="text-sm font-medium text-slate-400 uppercase tracking-wider">Rokov praxe</div>
+                    </div>
+                    <div class="text-left border-l border-slate-700/50 pl-6 lg:pl-12">
+                        <div class="text-4xl lg:text-5xl font-bold font-heading text-white mb-1">15k<span class="text-brand-500">+</span></div>
+                        <div class="text-sm font-medium text-slate-400 uppercase tracking-wider">Opravených áut</div>
+                    </div>
+                    <div class="text-left border-l border-slate-700/50 pl-6 lg:pl-12">
+                        <div class="flex items-center gap-1 mb-1">
+                            <div class="text-4xl lg:text-5xl font-bold font-heading text-white">4.8</div>
+                            <i data-lucide="star" class="w-6 h-6 text-yellow-400 fill-yellow-400 -mt-2"></i>
+                        </div>
+                        <div class="text-sm font-medium text-slate-400 uppercase tracking-wider">Hodnotenie</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="sluzby" class="py-24 bg-white relative">
+        <!-- Decorative Background -->
+        <div class="absolute top-0 right-0 -mt-20 w-96 h-96 bg-brand-50 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-float"></div>
+        <div class="absolute bottom-0 left-0 w-72 h-72 bg-slate-50 rounded-full mix-blend-multiply filter blur-3xl opacity-70"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-20 max-w-3xl mx-auto">
+                <span class="text-brand-600 font-bold tracking-widest uppercase text-sm mb-3 block">Naše služby</span>
+                <h2 class="text-4xl lg:text-5xl font-bold font-heading text-slate-900 mb-6">Spoľahlivý servis pre <span class="gradient-text">každé vozidlo</span></h2>
+                <p class="text-lg text-slate-600 leading-relaxed">Poskytujeme špičkovú starostlivosť s využitím najmodernejších technológií. Od bežnej údržby až po zložité opravy motorov.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="service-card group bg-white rounded-2xl p-8 border border-slate-100 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-brand-50 to-transparent rounded-bl-full -z-10 group-hover:scale-110 transition-transform duration-500"></div>
+                    <div class="w-14 h-14 bg-brand-50 rounded-xl flex items-center justify-center mb-8 border border-brand-100 group-hover:bg-brand-600 transition-colors duration-300">
+                        <i data-lucide="cpu" class="w-6 h-6 text-brand-600 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-heading text-slate-900 mb-4 group-hover:text-brand-600 transition-colors">Počítačová diagnostika</h3>
+                    <p class="text-slate-600 leading-relaxed group-hover:text-slate-700 transition-colors">Presná elektronická diagnostika riadiacich jednotiek pomocou originálnych testerov pre všetky značky.</p>
+                    <div class="mt-6 flex items-center text-brand-600 font-semibold text-sm opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                        Zistiť viac <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                    </div>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="service-card group bg-white rounded-2xl p-8 border border-slate-100 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-brand-50 to-transparent rounded-bl-full -z-10 group-hover:scale-110 transition-transform duration-500"></div>
+                    <div class="w-14 h-14 bg-brand-50 rounded-xl flex items-center justify-center mb-8 border border-brand-100 group-hover:bg-brand-600 transition-colors duration-300">
+                        <i data-lucide="settings" class="w-6 h-6 text-brand-600 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-heading text-slate-900 mb-4 group-hover:text-brand-600 transition-colors">Mechanické opravy</h3>
+                    <p class="text-slate-600 leading-relaxed">Komplexné opravy motorov, prevodoviek, spojok a podvozkových častí s garanciou kvality.</p>
+                    <div class="mt-6 flex items-center text-brand-600 font-semibold text-sm opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                        Zistiť viac <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="service-card group bg-white rounded-2xl p-8 border border-slate-100 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-brand-50 to-transparent rounded-bl-full -z-10 group-hover:scale-110 transition-transform duration-500"></div>
+                    <div class="w-14 h-14 bg-brand-50 rounded-xl flex items-center justify-center mb-8 border border-brand-100 group-hover:bg-brand-600 transition-colors duration-300">
+                        <i data-lucide="droplets" class="w-6 h-6 text-brand-600 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-heading text-slate-900 mb-4 group-hover:text-brand-600 transition-colors">Olejový servis</h3>
+                    <p class="text-slate-600 leading-relaxed">Rýchla výmena motorového oleja a všetkých filtrov. Používame výhradne prémiové mazivá schválené výrobcami.</p>
+                    <div class="mt-6 flex items-center text-brand-600 font-semibold text-sm opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                        Zistiť viac <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                    </div>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="service-card group bg-white rounded-2xl p-8 border border-slate-100 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-brand-50 to-transparent rounded-bl-full -z-10 group-hover:scale-110 transition-transform duration-500"></div>
+                    <div class="w-14 h-14 bg-brand-50 rounded-xl flex items-center justify-center mb-8 border border-brand-100 group-hover:bg-brand-600 transition-colors duration-300">
+                        <i data-lucide="circle-dashed" class="w-6 h-6 text-brand-600 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-heading text-slate-900 mb-4 group-hover:text-brand-600 transition-colors">Pneuservis & Geometria</h3>
+                    <p class="text-slate-600 leading-relaxed">Kompletné prezutie, 3D laserová geometria náprav, vyvažovanie a sezónne uskladnenie pneumatík.</p>
+                    <div class="mt-6 flex items-center text-brand-600 font-semibold text-sm opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                        Zistiť viac <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                    </div>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="service-card group bg-white rounded-2xl p-8 border border-slate-100 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-brand-50 to-transparent rounded-bl-full -z-10 group-hover:scale-110 transition-transform duration-500"></div>
+                    <div class="w-14 h-14 bg-brand-50 rounded-xl flex items-center justify-center mb-8 border border-brand-100 group-hover:bg-brand-600 transition-colors duration-300">
+                        <i data-lucide="thermometer-snowflake" class="w-6 h-6 text-brand-600 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-heading text-slate-900 mb-4 group-hover:text-brand-600 transition-colors">Servis klimatizácie</h3>
+                    <p class="text-slate-600 leading-relaxed">Diagnostika únikov, plnenie chladivom (r134a aj 1234yf), ozónová dezinfekcia a oprava kompresorov.</p>
+                    <div class="mt-6 flex items-center text-brand-600 font-semibold text-sm opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                        Zistiť viac <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                    </div>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="service-card group bg-white rounded-2xl p-8 border border-slate-100 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-brand-50 to-transparent rounded-bl-full -z-10 group-hover:scale-110 transition-transform duration-500"></div>
+                    <div class="w-14 h-14 bg-brand-50 rounded-xl flex items-center justify-center mb-8 border border-brand-100 group-hover:bg-brand-600 transition-colors duration-300">
+                        <i data-lucide="zap" class="w-6 h-6 text-brand-600 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-heading text-slate-900 mb-4 group-hover:text-brand-600 transition-colors">Autoelektrika</h3>
+                    <p class="text-slate-600 leading-relaxed">Riešenie komplexných elektronických závad, oprava kabeláže, štartérov, alternátorov a inštalácia doplnkov.</p>
+                    <div class="mt-6 flex items-center text-brand-600 font-semibold text-sm opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                        Zistiť viac <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="cennik" class="py-24 bg-slate-50 relative border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20 max-w-3xl mx-auto">
+                <span class="text-brand-600 font-bold tracking-widest uppercase text-sm mb-3 block">Cenník</span>
+                <h2 class="text-4xl lg:text-5xl font-bold font-heading text-slate-900 mb-6">Transparentné <span class="gradient-text">ceny služieb</span></h2>
+                <p class="text-lg text-slate-600 leading-relaxed">Férový prístup bez skrytých poplatkov. Všetky ceny sú uvedené vrátane 20% DPH. Konečná cena sa môže líšiť podľa konkrétneho modelu vozidla.</p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-10">
+                <!-- Left Column -->
+                <div class="bg-white rounded-3xl p-10 shadow-xl shadow-slate-200/50 border border-slate-100 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-slate-50 rounded-bl-full -z-10"></div>
+                    
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-12 h-12 bg-slate-900 rounded-xl flex items-center justify-center">
+                            <i data-lucide="wrench" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold font-heading text-slate-900">Pravidelná údržba</h3>
+                    </div>
+                    
+                    <ul class="space-y-6">
+                        <li class="group flex justify-between items-center pb-6 border-b border-slate-100 last:border-0 last:pb-0">
+                            <div>
+                                <span class="block text-lg font-bold text-slate-800 mb-1 group-hover:text-brand-600 transition-colors">Základný olejový servis</span>
+                                <p class="text-sm text-slate-500 font-medium">Práca + prémiový olej 5W-30 + filter</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="block text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Cena od</span>
+                                <span class="text-2xl font-bold text-slate-900">79 <span class="text-lg">€</span></span>
+                            </div>
+                        </li>
+                        <li class="group flex justify-between items-center pb-6 border-b border-slate-100 last:border-0 last:pb-0">
+                            <div>
+                                <span class="block text-lg font-bold text-slate-800 mb-1 group-hover:text-brand-600 transition-colors">Veľká servisná prehliadka</span>
+                                <p class="text-sm text-slate-500 font-medium">Olej, všetky filtre, sviečky, 30-bodová kontrola</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="block text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Cena od</span>
+                                <span class="text-2xl font-bold text-slate-900">199 <span class="text-lg">€</span></span>
+                            </div>
+                        </li>
+                        <li class="group flex justify-between items-center pb-6 border-b border-slate-100 last:border-0 last:pb-0">
+                            <div>
+                                <span class="block text-lg font-bold text-slate-800 mb-1 group-hover:text-brand-600 transition-colors">Výmena brzdových segmentov</span>
+                                <p class="text-sm text-slate-500 font-medium">Predná náprava (práca + materiál)</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="block text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Cena od</span>
+                                <span class="text-2xl font-bold text-slate-900">120 <span class="text-lg">€</span></span>
+                            </div>
+                        </li>
+                        <li class="group flex justify-between items-center pb-6 border-b border-slate-100 last:border-0 last:pb-0">
+                            <div>
+                                <span class="block text-lg font-bold text-slate-800 mb-1 group-hover:text-brand-600 transition-colors">Kompletná diagnostika</span>
+                                <p class="text-sm text-slate-500 font-medium">Výpis chýb, live dáta, zmazanie intervalov</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-2xl font-bold text-slate-900">35 <span class="text-lg">€</span></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Right Column -->
+                <div class="bg-slate-900 rounded-3xl p-10 shadow-2xl relative overflow-hidden" style="box-shadow: 0 25px 50px -12px rgba(220, 38, 38, 0.25);">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-brand-900/30 rounded-bl-full filter blur-2xl -z-10"></div>
+                    
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-12 h-12 bg-brand-600 rounded-xl flex items-center justify-center">
+                            <i data-lucide="settings" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold font-heading text-white">Špeciálne služby</h3>
+                    </div>
+                    
+                    <ul class="space-y-6">
+                        <li class="group flex justify-between items-center pb-6 border-b border-slate-800 last:border-0 last:pb-0">
+                            <div>
+                                <span class="block text-lg font-bold text-white mb-1 group-hover:text-brand-400 transition-colors">Servis klimatizácie</span>
+                                <p class="text-sm text-slate-400 font-medium">Odsatie, vákuovanie, plnenie R134a + ozón</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="block text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Cena od</span>
+                                <span class="text-2xl font-bold text-white">85 <span class="text-lg text-brand-400">€</span></span>
+                            </div>
+                        </li>
+                        <li class="group flex justify-between items-center pb-6 border-b border-slate-800 last:border-0 last:pb-0">
+                            <div>
+                                <span class="block text-lg font-bold text-white mb-1 group-hover:text-brand-400 transition-colors">3D Geometria náprav</span>
+                                <p class="text-sm text-slate-400 font-medium">Meranie a nastavenie prednej i zadnej osi</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="block text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Cena od</span>
+                                <span class="text-2xl font-bold text-white">55 <span class="text-lg text-brand-400">€</span></span>
+                            </div>
+                        </li>
+                        <li class="group flex justify-between items-center pb-6 border-b border-slate-800 last:border-0 last:pb-0">
+                            <div>
+                                <span class="block text-lg font-bold text-white mb-1 group-hover:text-brand-400 transition-colors">Výmena rozvodov</span>
+                                <p class="text-sm text-slate-400 font-medium">Sada rozvodového remeňa + vodná pumpa + práca</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="block text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Cena od</span>
+                                <span class="text-2xl font-bold text-white">380 <span class="text-lg text-brand-400">€</span></span>
+                            </div>
+                        </li>
+                        <li class="group flex justify-between items-center pb-6 border-b border-slate-800 last:border-0 last:pb-0">
+                            <div>
+                                <span class="block text-lg font-bold text-white mb-1 group-hover:text-brand-400 transition-colors">Kompletné prezutie (Alu disk)</span>
+                                <p class="text-sm text-slate-400 font-medium">Montáž, demontáž, vyváženie (do 17")</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-2xl font-bold text-white">45 <span class="text-lg text-brand-400">€</span></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-16 bg-gradient-to-r from-brand-600 to-brand-800 rounded-3xl p-10 lg:p-12 text-white text-center shadow-xl flex flex-col items-center relative overflow-hidden">
+                <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+                <h3 class="text-3xl font-bold font-heading mb-4 relative z-10">Nenašli ste, čo hľadáte?</h3>
+                <p class="text-brand-100 mb-8 max-w-2xl text-lg relative z-10">Toto je len výber našich najčastejších služieb. Každé vozidlo je špecifické. Opíšte nám váš problém a my vám vypracujeme presnú cenovú ponuku na mieru.</p>
+                <a href="#objednavka" class="btn-primary inline-flex bg-white text-brand-700 px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all relative z-10 items-center gap-2">
+                    Vyžiadať cenovú ponuku
+                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="o-nas" class="py-24 bg-white relative overflow-hidden">
+        <!-- Abstract Shapes -->
+        <div class="absolute top-40 left-0 w-64 h-64 bg-brand-50 rounded-full mix-blend-multiply filter blur-3xl opacity-70"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+                <div class="order-2 lg:order-1 relative">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-brand-600 to-brand-400 rounded-3xl transform -rotate-3 scale-105 opacity-20 blur-lg"></div>
+                    <div class="absolute inset-0 bg-brand-600 rounded-3xl transform -rotate-3 transition-transform hover:rotate-0 duration-500"></div>
+                    <img src="https://images.unsplash.com/photo-1625047509168-a7026f36de04?w=800&h=600&fit=crop" alt="Mechanik pri práci" class="relative rounded-3xl shadow-2xl w-full object-cover h-[500px] lg:h-[600px] grayscale-[20%] hover:grayscale-0 transition-all duration-500">
+                    
+                    <!-- Floating Badge 1 -->
+                    <div class="absolute -bottom-8 -right-8 bg-white p-6 rounded-2xl shadow-xl border border-slate-100 animate-float" style="animation-delay: 1s;">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-brand-100 rounded-full flex items-center justify-center">
+                                <i data-lucide="shield-check" class="w-6 h-6 text-brand-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-bold font-heading text-slate-900">100%</div>
+                                <div class="text-sm text-slate-500 font-medium">Garancia kvality</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Floating Badge 2 -->
+                    <div class="absolute top-10 -left-10 bg-white p-5 rounded-2xl shadow-xl border border-slate-100 animate-float hidden sm:block">
+                        <div class="flex items-center gap-3">
+                            <div class="flex -space-x-3">
+                                <img class="w-10 h-10 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=11" alt="Zákazník">
+                                <img class="w-10 h-10 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=12" alt="Zákazník">
+                                <img class="w-10 h-10 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=13" alt="Zákazník">
+                            </div>
+                            <div>
+                                <div class="text-sm font-bold text-slate-900">Spokojní klienti</div>
+                                <div class="flex text-yellow-400 text-xs mt-0.5">
+                                    <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                                    <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                                    <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                                    <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                                    <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="order-1 lg:order-2">
+                    <span class="text-brand-600 font-bold tracking-widest uppercase text-sm mb-3 block">O nás</span>
+                    <h2 class="text-4xl lg:text-5xl font-bold font-heading text-slate-900 mb-6">Rodinný autoservis s <span class="gradient-text">tradíciou</span></h2>
+                    <p class="text-slate-600 text-lg mb-6 leading-relaxed">
+                        AutoServis Kováč bol založený v roku 2004 a odvtedy sme stredobodom záujmu našich zákazníkov v regióne. Naša filozofia je priamočiara: <strong class="text-slate-900">transparentná komunikácia, prvotriedna kvalita prác a maximálna spokojnosť</strong>.
+                    </p>
+                    <p class="text-slate-600 mb-10 leading-relaxed">
+                        Disponujeme moderným diagnostickým vybavením a náš tím tvoria certifikovaní mechanici, ktorí sa pravidelne školia v nových technológiách. Od bežnej údržby až po zložité zásahy - sme pripravení vyriešiť akýkoľvek problém vášho vozidla.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        <div class="flex items-start gap-4 group">
+                            <div class="w-14 h-14 bg-brand-50 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-brand-600 transition-colors duration-300">
+                                <i data-lucide="award" class="w-7 h-7 text-brand-600 group-hover:text-white transition-colors"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold font-heading text-xl text-slate-900 mb-1">Certifikovaný tím</div>
+                                <div class="text-slate-500 leading-snug">Pravidelné školenia priamo od výrobcov áut.</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 group">
+                            <div class="w-14 h-14 bg-brand-50 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-brand-600 transition-colors duration-300">
+                                <i data-lucide="zap" class="w-7 h-7 text-brand-600 group-hover:text-white transition-colors"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold font-heading text-xl text-slate-900 mb-1">Expresný servis</div>
+                                <div class="text-slate-500 leading-snug">Garantujeme termín na diagnostiku do 48 hodín.</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 group">
+                            <div class="w-14 h-14 bg-brand-50 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-brand-600 transition-colors duration-300">
+                                <i data-lucide="shield" class="w-7 h-7 text-brand-600 group-hover:text-white transition-colors"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold font-heading text-xl text-slate-900 mb-1">Rozšírená záruka</div>
+                                <div class="text-slate-500 leading-snug">Poskytujeme 24-mesačnú záruku na vykonanú prácu.</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 group">
+                            <div class="w-14 h-14 bg-brand-50 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-brand-600 transition-colors duration-300">
+                                <i data-lucide="car" class="w-7 h-7 text-brand-600 group-hover:text-white transition-colors"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold font-heading text-xl text-slate-900 mb-1">Náhradné vozidlo</div>
+                                <div class="text-slate-500 leading-snug">Bezplatne zapožičiame auto pri oprave nad 3 dni.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="recenzie" class="py-24 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20 max-w-3xl mx-auto">
+                <span class="text-brand-600 font-bold tracking-widest uppercase text-sm mb-3 block">Recenzie</span>
+                <h2 class="text-4xl lg:text-5xl font-bold font-heading text-slate-900">Spokojnosť <span class="gradient-text">hrdých majiteľov</span></h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg shadow-slate-200/40 border border-slate-100 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="flex gap-1">
+                            <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i>
+                        </div>
+                        <i data-lucide="quote" class="w-8 h-8 text-slate-200"></i>
+                    </div>
+                    <p class="text-slate-600 mb-8 italic text-lg leading-relaxed">"Absolútna profesionalita. Diagnostika prebehla do hodiny, jasne mi vysvetlili problém a cena bola presne taká, akú sme dohodli. Odteraz len Autoservis Kováč."</p>
+                    <div class="flex items-center gap-4 mt-auto">
+                        <img src="https://i.pravatar.cc/150?img=33" alt="Marek K." class="w-14 h-14 rounded-full border-2 border-brand-100 object-cover">
+                        <div>
+                            <div class="font-bold font-heading text-lg text-slate-900">Marek K.</div>
+                            <div class="text-sm text-brand-600 font-medium">Škoda Superb L&K</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Review 2 -->
+                <div class="bg-brand-900 rounded-2xl p-8 shadow-2xl shadow-brand-900/40 relative overflow-hidden transform md:-translate-y-4">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-brand-950/50"></div>
+                    <div class="relative z-10">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="flex gap-1">
+                                <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i>
+                            </div>
+                            <i data-lucide="quote" class="w-8 h-8 text-brand-700/50"></i>
+                        </div>
+                        <p class="text-brand-50 mb-8 italic text-lg leading-relaxed">"Zachránili ma pred drahou výmenou prevodovky, ktorú mi navrhovali v autorizáku. Zistili, že ide len o drobnú elektronickú súčiastku. Férový prístup je tu štandardom!"</p>
+                        <div class="flex items-center gap-4 mt-auto">
+                            <img src="https://i.pravatar.cc/150?img=47" alt="Jana P." class="w-14 h-14 rounded-full border-2 border-brand-600 object-cover">
+                            <div>
+                                <div class="font-bold font-heading text-lg text-white">Jana P.</div>
+                                <div class="text-sm text-brand-300 font-medium">VW Golf VII</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Review 3 -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg shadow-slate-200/40 border border-slate-100 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="flex gap-1">
+                            <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-slate-300 fill-slate-300"></i>
+                        </div>
+                        <i data-lucide="quote" class="w-8 h-8 text-slate-200"></i>
+                    </div>
+                    <p class="text-slate-600 mb-8 italic text-lg leading-relaxed">"Pravidelne sem chodím s firemnou flotilou na výmeny olejov a pneuservis. Termíny dodržujú presne na minútu a práca je vždy odvedená stopercentne."</p>
+                    <div class="flex items-center gap-4 mt-auto">
+                        <img src="https://i.pravatar.cc/150?img=11" alt="Peter S." class="w-14 h-14 rounded-full border-2 border-brand-100 object-cover">
+                        <div>
+                            <div class="font-bold font-heading text-lg text-slate-900">Peter S.</div>
+                            <div class="text-sm text-brand-600 font-medium">BMW X5 M-Sport</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <a href="#" class="inline-flex items-center gap-2 text-brand-600 font-bold hover:text-brand-700 transition-colors">
+                    Zobraziť všetky Google recenzie (128+)
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Form Section -->
+    <section id="objednavka" class="py-24 bg-slate-900 relative border-t border-slate-800 overflow-hidden">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTU0LjYyNyAwdjYwSDBWMGg1NC42Mjd6TTU0IDU5VjFoLTUzVjU5aDUzeiIgZmlsbD0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjAzKSIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+')]"></div>
+        
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-brand-500 font-bold tracking-widest uppercase text-sm mb-3 block">Online objednávka</span>
+                <h2 class="text-4xl lg:text-5xl font-bold font-heading text-white mb-6">Objednajte si servis <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-600">online</span></h2>
+                <p class="text-slate-400 text-lg">Vyplňte krátky formulár a náš prijímací technik vás bude kontaktovať s návrhom termínu.</p>
+            </div>
+            
+            <form class="bg-white rounded-3xl p-8 md:p-12 shadow-2xl relative">
+                <!-- Abstract corner element -->
+                <div class="absolute -top-3 -right-3 w-24 h-24 bg-gradient-to-br from-brand-400 to-brand-600 rounded-3xl -z-10 blur-lg opacity-50"></div>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-slate-700 font-bold mb-2 text-sm">Meno a priezvisko *</label>
+                        <input type="text" required class="w-full px-5 py-4 bg-slate-50 rounded-xl border border-slate-200 focus:bg-white focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 outline-none transition-all duration-300 placeholder:text-slate-400" placeholder="Zadajte vaše meno">
+                    </div>
+                    <div>
+                        <label class="block text-slate-700 font-bold mb-2 text-sm">Telefón *</label>
+                        <input type="tel" required class="w-full px-5 py-4 bg-slate-50 rounded-xl border border-slate-200 focus:bg-white focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 outline-none transition-all duration-300 placeholder:text-slate-400" placeholder="+421 XXX XXX XXX">
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-slate-700 font-bold mb-2 text-sm">Email *</label>
+                    <input type="email" required class="w-full px-5 py-4 bg-slate-50 rounded-xl border border-slate-200 focus:bg-white focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 outline-none transition-all duration-300 placeholder:text-slate-400" placeholder="vas@email.sk">
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-slate-700 font-bold mb-2 text-sm">Značka vozidla *</label>
+                        <div class="relative">
+                            <select required class="w-full px-5 py-4 bg-slate-50 rounded-xl border border-slate-200 focus:bg-white focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 outline-none transition-all duration-300 appearance-none text-slate-700 cursor-pointer">
+                                <option value="" disabled selected>Vyberte značku</option>
+                                <option>Audi</option>
+                                <option>BMW</option>
+                                <option>Citroën</option>
+                                <option>Ford</option>
+                                <option>Hyundai</option>
+                                <option>Kia</option>
+                                <option>Mazda</option>
+                                <option>Mercedes-Benz</option>
+                                <option>Peugeot</option>
+                                <option>Renault</option>
+                                <option>Škoda</option>
+                                <option>Toyota</option>
+                                <option>Volkswagen</option>
+                                <option>Iná</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-5 text-slate-500">
+                                <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-slate-700 font-bold mb-2 text-sm">Model a rok výroby</label>
+                        <input type="text" class="w-full px-5 py-4 bg-slate-50 rounded-xl border border-slate-200 focus:bg-white focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 outline-none transition-all duration-300 placeholder:text-slate-400" placeholder="napr. Octavia III, 2019">
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-slate-700 font-bold mb-2 text-sm">SPZ (evidenčné číslo)</label>
+                    <input type="text" class="w-full px-5 py-4 bg-slate-50 rounded-xl border border-slate-200 focus:bg-white focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 outline-none transition-all duration-300 uppercase placeholder:text-slate-400 placeholder:normal-case font-mono" placeholder="BA123XY">
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-slate-700 font-bold mb-2 text-sm">Požadovaná služba *</label>
+                        <div class="relative">
+                            <select required class="w-full px-5 py-4 bg-slate-50 rounded-xl border border-slate-200 focus:bg-white focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 outline-none transition-all duration-300 appearance-none text-slate-700 cursor-pointer">
+                                <option value="" disabled selected>Vyberte službu</option>
+                                <option>Výmena oleja a filtrov</option>
+                                <option>Veľká servisná prehliadka</option>
+                                <option>Počítačová diagnostika</option>
+                                <option>Brzdový systém</option>
+                                <option>Pneuservis / Geometria</option>
+                                <option>Servis klimatizácie</option>
+                                <option>Oprava podvozku</option>
+                                <option>Autoelektrika</option>
+                                <option>Iné - uvediem v poznámke</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-5 text-slate-500">
+                                <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-slate-700 font-bold mb-2 text-sm">Preferovaný termín</label>
+                        <input type="date" class="w-full px-5 py-4 bg-slate-50 rounded-xl border border-slate-200 focus:bg-white focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 outline-none transition-all duration-300 text-slate-700">
+                    </div>
+                </div>
+                
+                <div class="mb-8">
+                    <label class="block text-slate-700 font-bold mb-2 text-sm">Popis problému / poznámka</label>
+                    <textarea rows="4" class="w-full px-5 py-4 bg-slate-50 rounded-xl border border-slate-200 focus:bg-white focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 outline-none transition-all duration-300 placeholder:text-slate-400 resize-none" placeholder="Stručne popíšte, čo vás trápi alebo akú konkrétnu požiadavku máte..."></textarea>
+                </div>
+                
+                <div class="flex items-start gap-4 mb-10">
+                    <div class="flex items-center h-5">
+                        <input type="checkbox" id="suhlas" required class="w-5 h-5 border-slate-300 rounded text-brand-600 focus:ring-brand-500 cursor-pointer">
+                    </div>
+                    <label for="suhlas" class="text-sm text-slate-600 cursor-pointer leading-tight">
+                        Súhlasím so spracovaním osobných údajov v súlade s nariadením GDPR. Oboznámil(a) som sa s 
+                        <a href="#" class="text-brand-600 font-semibold hover:text-brand-700 hover:underline">podmienkami ochrany súkromia</a>.
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn-primary w-full bg-brand-600 text-white py-5 rounded-xl font-bold text-lg shadow-xl shadow-brand-600/30 hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-3 active:scale-[0.98]">
+                    <i data-lucide="send" class="w-5 h-5"></i>
+                    Odoslať nezáväznú objednávku
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="kontakt" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 lg:gap-24">
+                <div class="flex flex-col justify-center">
+                    <span class="text-brand-600 font-bold tracking-widest uppercase text-sm mb-3 block">Kontakt</span>
+                    <h2 class="text-4xl lg:text-5xl font-bold font-heading text-slate-900 mb-6">Naplánujte si <span class="gradient-text">návštevu</span></h2>
+                    <p class="text-lg text-slate-600 mb-10 leading-relaxed">
+                        Sme tu pre vás počas šiestich dní v týždni. Pre rýchlejšie vybavenie odporúčame využiť 
+                        online formulár alebo si vopred rezervovať termín telefonicky.
+                    </p>
+                    
+                    <div class="space-y-8">
+                        <div class="flex items-start gap-5 group">
+                            <div class="w-14 h-14 bg-brand-50 rounded-2xl flex items-center justify-center flex-shrink-0 border border-brand-100 group-hover:bg-brand-600 transition-colors duration-300">
+                                <i data-lucide="map-pin" class="w-6 h-6 text-brand-600 group-hover:text-white transition-colors"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold font-heading text-xl text-slate-900 mb-1">Kde nás nájdete</div>
+                                <div class="text-slate-600 leading-relaxed">Priemyselná ulica 456<br>821 09 Bratislava - Ružinov</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-5 group">
+                            <div class="w-14 h-14 bg-brand-50 rounded-2xl flex items-center justify-center flex-shrink-0 border border-brand-100 group-hover:bg-brand-600 transition-colors duration-300">
+                                <i data-lucide="phone-call" class="w-6 h-6 text-brand-600 group-hover:text-white transition-colors"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold font-heading text-xl text-slate-900 mb-1">Telefón</div>
+                                <div class="text-slate-600 leading-relaxed">
+                                    <a href="tel:+421911234567" class="hover:text-brand-600 transition-colors">+421 911 234 567</a> (Prijímací technik)<br>
+                                    <a href="tel:+421244456789" class="hover:text-brand-600 transition-colors">+421 2 4445 6789</a> (Pevná linka)
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-5 group">
+                            <div class="w-14 h-14 bg-brand-50 rounded-2xl flex items-center justify-center flex-shrink-0 border border-brand-100 group-hover:bg-brand-600 transition-colors duration-300">
+                                <i data-lucide="mail" class="w-6 h-6 text-brand-600 group-hover:text-white transition-colors"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold font-heading text-xl text-slate-900 mb-1">Email</div>
+                                <div class="text-slate-600 leading-relaxed">
+                                    <a href="mailto:servis@autokovac.sk" class="hover:text-brand-600 transition-colors">servis@autokovac.sk</a><br>
+                                    <a href="mailto:objednavky@autokovac.sk" class="hover:text-brand-600 transition-colors">objednavky@autokovac.sk</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-5 group">
+                            <div class="w-14 h-14 bg-brand-50 rounded-2xl flex items-center justify-center flex-shrink-0 border border-brand-100 group-hover:bg-brand-600 transition-colors duration-300">
+                                <i data-lucide="clock" class="w-6 h-6 text-brand-600 group-hover:text-white transition-colors"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold font-heading text-xl text-slate-900 mb-1">Otváracie hodiny</div>
+                                <div class="grid grid-cols-2 gap-x-8 text-slate-600">
+                                    <span>Pondelok - Piatok:</span> <span class="font-semibold text-slate-900 text-right">7:00 - 18:00</span>
+                                    <span>Sobota:</span> <span class="font-semibold text-slate-900 text-right">8:00 - 12:00</span>
+                                    <span>Nedeľa:</span> <span class="font-semibold text-brand-600 text-right">Zatvorené</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-slate-100 rounded-3xl overflow-hidden h-[400px] lg:h-[600px] shadow-xl border border-slate-200">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2662.0!2d17.1547!3d48.1486!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDjCsDA4JzU1LjAiTiAxN8KwMDknMTcuMCJF!5e0!3m2!1ssk!2ssk!4v1609459200000!5m2!1ssk!2ssk" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy"
+                        class="grayscale-[30%] hover:grayscale-0 transition duration-700">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-white pt-20 pb-10 border-t border-brand-900/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Branding -->
+                <div class="lg:col-span-1">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-brand-500 to-brand-700 rounded-xl flex items-center justify-center shadow-lg shadow-brand-500/20">
+                            <i data-lucide="wrench" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <span class="text-2xl font-bold font-heading tracking-tight uppercase">Autoservis</span>
+                            <span class="block text-xs text-brand-500 font-bold uppercase tracking-widest -mt-1">Kováč</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">Profesionálny prístup, moderné vybavenie a 20-ročná tradícia, vďaka ktorej sa na nás môžete vždy spoľahnúť.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:bg-brand-600 hover:border-brand-600 transition-all duration-300">
+                            <i data-lucide="facebook" class="w-4.5 h-4.5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:bg-brand-600 hover:border-brand-600 transition-all duration-300">
+                            <i data-lucide="instagram" class="w-4.5 h-4.5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:bg-brand-600 hover:border-brand-600 transition-all duration-300">
+                            <i data-lucide="linkedin" class="w-4.5 h-4.5"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Links -->
+                <div>
+                    <h4 class="font-bold font-heading text-lg mb-6 tracking-wide">Navigácia</h4>
+                    <ul class="space-y-4 text-slate-400 text-sm font-medium">
+                        <li><a href="#sluzby" class="flex items-center gap-2 hover:text-brand-400 text-slate-400 transition-colors group"><i data-lucide="chevron-right" class="w-4 h-4 text-slate-600 group-hover:text-brand-500 transition-colors"></i> Naše Služby</a></li>
+                        <li><a href="#cennik" class="flex items-center gap-2 hover:text-brand-400 text-slate-400 transition-colors group"><i data-lucide="chevron-right" class="w-4 h-4 text-slate-600 group-hover:text-brand-500 transition-colors"></i> Cenník opráv</a></li>
+                        <li><a href="#o-nas" class="flex items-center gap-2 hover:text-brand-400 text-slate-400 transition-colors group"><i data-lucide="chevron-right" class="w-4 h-4 text-slate-600 group-hover:text-brand-500 transition-colors"></i> O spoločnosti</a></li>
+                        <li><a href="#recenzie" class="flex items-center gap-2 hover:text-brand-400 text-slate-400 transition-colors group"><i data-lucide="chevron-right" class="w-4 h-4 text-slate-600 group-hover:text-brand-500 transition-colors"></i> Recenzie zákazníkov</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Services -->
+                <div>
+                    <h4 class="font-bold font-heading text-lg mb-6 tracking-wide">Hlavné Služby</h4>
+                    <ul class="space-y-4 text-slate-400 text-sm font-medium">
+                        <li><a href="#" class="flex items-center gap-2 hover:text-brand-400 text-slate-400 transition-colors group"><i data-lucide="chevron-right" class="w-4 h-4 text-slate-600 group-hover:text-brand-500 transition-colors"></i> Počítačová diagnostika</a></li>
+                        <li><a href="#" class="flex items-center gap-2 hover:text-brand-400 text-slate-400 transition-colors group"><i data-lucide="chevron-right" class="w-4 h-4 text-slate-600 group-hover:text-brand-500 transition-colors"></i> Mechanické práce</a></li>
+                        <li><a href="#" class="flex items-center gap-2 hover:text-brand-400 text-slate-400 transition-colors group"><i data-lucide="chevron-right" class="w-4 h-4 text-slate-600 group-hover:text-brand-500 transition-colors"></i> 3D Geometria</a></li>
+                        <li><a href="#" class="flex items-center gap-2 hover:text-brand-400 text-slate-400 transition-colors group"><i data-lucide="chevron-right" class="w-4 h-4 text-slate-600 group-hover:text-brand-500 transition-colors"></i> Plnenie klimatizácií</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Mini -->
+                <div>
+                    <h4 class="font-bold font-heading text-lg mb-6 tracking-wide">Rýchly kontakt</h4>
+                    <ul class="space-y-4 text-slate-400 text-sm font-medium">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-brand-500 mt-0.5 flex-shrink-0"></i>
+                            <span>Priemyselná 456<br>821 09 Bratislava</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="phone" class="w-5 h-5 text-brand-500 flex-shrink-0"></i>
+                            <a href="tel:+421911234567" class="hover:text-white transition-colors">+421 911 234 567</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="mail" class="w-5 h-5 text-brand-500 flex-shrink-0"></i>
+                            <a href="mailto:servis@autokovac.sk" class="hover:text-white transition-colors">servis@autokovac.sk</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Bottom Bar -->
+            <div class="border-t border-slate-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-500 text-sm font-medium">&copy; 2024 AutoServis Kováč. Všetky práva vyhradené.</p>
+                <div class="flex gap-6 text-sm font-medium text-slate-500">
+                    <a href="#" class="hover:text-brand-400 transition-colors">Ochrana osobných údajov</a>
+                    <a href="#" class="hover:text-brand-400 transition-colors">Obchodné podmienky</a>
+                    <a href="#" class="hover:text-brand-400 transition-colors">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
